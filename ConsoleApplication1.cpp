@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-
 int divide(int array[], int firstElement, int lastElement)
 {
 	int pivot = array[lastElement]; //here i'm choosing pivot as last 
@@ -27,18 +26,18 @@ int divide(int array[], int firstElement, int lastElement)
 	return a + 1; //return the divide index
 }
 
-void quicksortAlg(int array[], int lowElement, int highElement)
+void sort(int array[], int lowElement, int highElement)
 {
 	if(lowElement < highElement)
 	{
 		int pivot = divide(array, lowElement, highElement);
-		quicksortAlg(array, lowElement, pivot - 1);
-		quicksortAlg(array, pivot + 1, highElement);
+		sort(array, lowElement, pivot - 1);
+		sort(array, pivot + 1, highElement);
 	}
 }
 
 double sortAndFindMedian(int array[], int num) {
-	quicksortAlg(array, 0, num - 1); // Sorting the element using quicksort here
+	sort(array, 0, num - 1); // Sorting the element using quicksort here
 
 	// checking whether number is even or not
 	if (num % 2 == 0) {
@@ -48,18 +47,25 @@ double sortAndFindMedian(int array[], int num) {
 		return array[num / 2];
 	}
 }
+
 int main() {
-	int array[] = {12, 4, 7, 9, 2, 15};  // Calculate the number of elements in the array
+	int size;
+	cout << "Enter the number of elements in the array: ";
+	cin >> size;
 
-	int size = sizeof(array) / sizeof(array[0]);
+	int* array = new int[size];
 
-	double median = sortAndFindMedian(array, size); 	// Find the median after sorting the array
-
-	std::cout << "Sorted Array is : ";
+	cout << "Enter " << size << " elements:\n";
 	for (int i = 0; i < size; i++) {
-		std::cout << array[i] << " ";
+		cin >> array[i];
 	}
-	std::cout << "\nMedian value is : " << median; 
+	double median = sortAndFindMedian(array, size);
+
+	cout << "Sorted Array is: ";
+	for (int i = 0; i < size; i++) {
+		cout << array[i] << " ";
+	}
+	cout << "\nMedian value is: " << median;
 
 	return 0;
 }
